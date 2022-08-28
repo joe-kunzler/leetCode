@@ -6,19 +6,20 @@ class ListNode(object):
 
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: ListNode
-        :type l2: ListNode
-        :rtype: ListNode
-        """
+
         carry = 0
         head = ListNode(0)
+        print(head)
         curr = head
+        print(curr)
         while l1 or l2 or carry:
             val = carry
+            print(val)
             if l1:
                 val += l1.val
+                print(val)
                 l1 = l1.next
+                print(l1)
             if l2:
                 val += l2.val
                 l2 = l2.next
