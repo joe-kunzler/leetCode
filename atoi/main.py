@@ -1,37 +1,36 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        new_string = s.strip()
-        if new_string == '':
+        s = s.strip()
+        if s == '':
             return 0
-        if len(new_string) == 1:
-            if new_string.isdigit():
-                return int(new_string)
-            else:
-                return 0
-        if (new_string[0] == '-') and (new_string[1].isdigit()) and (new_string[1] != '0'):
-            int_string = new_string[1:]
-            int_string = ''.join(ch for ch in int_string if ch.isdigit() or ch == '.')
-            final_answer = -int(int_string)
-            if final_answer >= -2147483648:
-                return final_answer
-            else:
-                return -2147483648
-        elif (new_string[0] == '+') and (new_string[1].isdigit()) and (new_string[1] != '0'):
-            int_string = new_string[1:]
-            int_string = ''.join(ch for ch in int_string if ch.isdigit() or ch == '.')
-            final_answer = int(int_string)
-            if final_answer <= 2147483647:
-                return final_answer
-            else:
-                return 2147483647
-        elif new_string[0].isdigit():
-            int_string = ''.join(ch for ch in new_string if ch.isdigit() or ch == '.')
-            if '.' in int_string:
-                int_string = int_string.split('.')[0]
-            final_answer = int(int_string)
-            if final_answer <= 2147483647:
-                return final_answer
-            else:
-                return 0
         else:
-            return 0
+            if s[0] == '-' or s[0] == '+':
+                if s[0] == '-':
+                    sign = -1
+                else:
+                    sign = 1
+                s = s[1:]
+            else:
+                sign = 1
+            if s == '':
+                return 0
+            else:
+                if s[0].isdigit():
+                    for i in range(len(s)):
+                        if s[i].isdigit():
+                            continue
+                        else:
+                            s = s[:i]
+                            break
+                    if sign == -1:
+                        if int(s) >= 2147483648:
+                            return -2147483648
+                        else:
+                            return -int(s)
+                    else:
+                        if int(s) >= 2147483647:
+                            return 2147483647
+                        else:
+                            return int(s)
+                else:
+                    return 0
